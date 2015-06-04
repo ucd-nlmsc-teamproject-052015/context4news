@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    DjangoNewsApp- Article Details - {{ article.Headline }}
+{% endblock %}
+
+{% block body %}
+    {% if error_message %}
+        <div class="alert alert-danger ">
+            {{ error_message }}
+        </div>
+    {% endif %}
+    {% if success_message %}
+        <div id="alert1" class="alert alert-success ">
+            {{ success_message }}
+        </div>
+    {% endif %}
+
+    <header class="page-header">
+        <h2>{{ article.SubHeadline }}<br>
+            <small>{{ article.SubHeadline }}</small>
+        </h2>
+    </header>
+
+
+    <div class="row" style="border-bottom:1px solid #eee;">
+        <div id="article" class="col-md-6"
+             style="overflow-x:hidden;overflow-y:scroll; height: 1000px; border-right:1px solid #eee;">
+            {% if article %}
+                <article class="text-left">
+                    <strong>{{ article.DateTime }}</strong>
+                    <br>
+                    <strong>Keywords:</strong>
+                    <h4>
+                        {% for keyword in article.getKeywords %}
+                            <span class="label label-default">{{ keyword }}</span>
+                        {% endfor %}
+                    </h4>
+                    {#                    <br>#}
+                    {#                    <strong>Stream Keywords: {{ article.Stream_Keywords }}</strong>#}
+                    <p style="margin-top: 18px;">
+                        {% for line in article.splitContent %}
+                            {{ line }}<br>
+                        {% endfor %}
+                    </p>
+                    <a href="{{ article.Url }}">{{ article.Url }}</a>
+                </article>
+            {% endif %}
+        </div>
+
+        <div id="topics" class="col-md-6" style="overflow-x:hidden;overflow-y:scroll; height: 1000px; ">
+
+        </div>
+
+
+    </div>
+
+{% endblock %}
